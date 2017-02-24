@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <attr name="orientation" format="enum">
+        <enum name="vertical" value="1" />
+        <enum name="horizontal" value="2" />
+    </attr>
+
     <declare-styleable name="StepViews">
-        <attr name="orientation" format="enum">
-            <enum name="vertical" value="1" />
-            <enum name="horizontal" value="2" />
-        </attr>
+        <attr name="orientation" />
+    </declare-styleable>
+
+    <declare-styleable name="ImageStepViews">
+        <attr name="orientation" />
+        <attr name="steps" format="reference" />
+        <attr name="currentStep" format="integer" />
     </declare-styleable>
 </resources>

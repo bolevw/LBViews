@@ -3,4 +3,15 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+
+
+    <string-array name="default_steps">
+        <item>接单</item>
+        <item>打包</item>
+        <item>出发</item>
+        <item>送单</item>
+        <item>完成</item>
+        <item>支付</item>
+        <item>评价</item>
+    </string-array>
 </resources>

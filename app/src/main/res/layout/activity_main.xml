@@ -29,7 +29,17 @@
             android:id="@+id/stepView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#000" />
+            android:background="#000"
+            android:visibility="gone" />
+
+        <com.test.lbviews.views.ImageStepViews
+            android:id="@+id/step"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#ff88ff"
+            app:currentStep="4"
+            app:orientation="vertical"
+             />
 
     </FrameLayout>
 

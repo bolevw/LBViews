@@ -6,10 +6,12 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.test.lbviews.views.ImageStepViews;
 import com.test.lbviews.views.StepViews;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -17,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView mTextMessage;
 
     private StepViews mStepView;
+    private ImageStepViews mImageStepViews;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -50,14 +53,18 @@ public class MainActivity extends AppCompatActivity {
 
         mStepView = (StepViews) findViewById(R.id.stepView);
 
-        List<String> list = new ArrayList<>();
-        list.add("接单");
-        list.add("打包");
-        list.add("出发");
-        list.add("送单");
-        list.add("完成");
-        list.add("支付");
+        String[] strings = getResources().getStringArray(R.array.default_steps);
+
+        List<String> list = Arrays.asList(strings);
         mStepView.setCurrentSteps(2).setSteps(list).build();
+
+        mImageStepViews = (ImageStepViews) findViewById(R.id.step);
+        mImageStepViews.setOnStepClickListener(new ImageStepViews.OnStepClickListener() {
+            @Override
+            public void stepClick(int clickStep) {
+                Toast.makeText(MainActivity.this, "click step is" + clickStep, Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 
