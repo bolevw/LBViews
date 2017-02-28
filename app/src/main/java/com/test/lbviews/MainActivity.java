@@ -5,10 +5,12 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.test.lbviews.views.ImageStepViews;
+import com.test.lbviews.views.MovePath;
 import com.test.lbviews.views.StepViews;
 
 import java.util.Arrays;
@@ -20,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
     private StepViews mStepView;
     private ImageStepViews mImageStepViews;
+    private MovePath mMovePath;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -63,6 +66,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void stepClick(int clickStep) {
                 Toast.makeText(MainActivity.this, "click step is" + clickStep, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        mMovePath = (MovePath) findViewById(R.id.move);
+        mMovePath.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mMovePath.start();
             }
         });
 

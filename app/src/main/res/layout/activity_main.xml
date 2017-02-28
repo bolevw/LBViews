@@ -38,9 +38,13 @@
             android:layout_height="wrap_content"
             android:background="#ff88ff"
             app:currentStep="4"
-            app:orientation="vertical"
-             />
+            app:orientation="vertical" />
 
+        <com.test.lbviews.views.MovePath
+            android:id="@+id/move"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:layout_gravity="right" />
     </FrameLayout>
 
     <android.support.design.widget.BottomNavigationView
