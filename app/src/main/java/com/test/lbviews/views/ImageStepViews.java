@@ -16,7 +16,6 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.IntDef;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -277,7 +276,7 @@ public class ImageStepViews extends View {
                         mPath.lineTo(dst.left + mBitmapWidth / 2, dst.top + averageDis);
                         canvas.drawPath(mPath, mPaint);
                     }
-                    canvas.drawText(mSteps.get(i), dst.right + mOffSet, dst.top + mBitmapHeight / 2,mPaint);
+                    canvas.drawText(mSteps.get(i), dst.right + mOffSet, dst.top + mBitmapHeight / 2, mPaint);
                     top = top + averageDis;
                     bottom = bottom + averageDis;
                 }

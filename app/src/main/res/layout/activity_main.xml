@@ -37,6 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="#ff88ff"
+            android:visibility="gone"
             app:currentStep="4"
             app:orientation="vertical" />
 
@@ -44,7 +45,25 @@
             android:id="@+id/move"
             android:layout_width="250dp"
             android:layout_height="250dp"
-            android:layout_gravity="right" />
+            android:layout_gravity="right"
+            android:visibility="gone" />
+
+        <com.test.lbviews.views.SpiderView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="right|bottom"
+            android:visibility="gone" />
+
+        <com.test.lbviews.views.CanvasOperation
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
+
+        <com.test.lbviews.views.ProgressView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_vertical_margin"
+            android:layout_marginTop="@dimen/activity_vertical_margin" />
     </FrameLayout>
 
     <android.support.design.widget.BottomNavigationView
