@@ -220,7 +220,7 @@ public class ProgressView extends View {
     private boolean start = false;
 
     private void initFengShan(Canvas canvas) {
-g
+
         if (mCurrentProgress >= 100 && !start) {
             start = true;
             fengRotateValueAnimator = new ValueAnimator();

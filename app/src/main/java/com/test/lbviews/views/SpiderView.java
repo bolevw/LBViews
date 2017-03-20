@@ -1,16 +1,16 @@
 package com.test.lbviews.views;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Rect;
-import android.graphics.RectF;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.WindowManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,11 +20,15 @@ import java.util.List;
  */
 
 public class SpiderView extends View {
+    private float mAngle = (float) (Math.PI * 2 / 6);
     private Paint mPaint;
+    private Paint mValuePaint;
     private Path mPath;
     private int mWindowWidth;
     private int mWindowHeight;
     private List<String> values = new ArrayList<>();
+    private float[] showValues = new float[]{30, 20, 50, 80, 20, 100};
+    private float mRadius;
 
 
     public SpiderView(Context context) {
@@ -33,6 +37,7 @@ public class SpiderView extends View {
 
     public SpiderView(Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, 0);
+
     }
 
     public SpiderView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
@@ -47,15 +52,19 @@ public class SpiderView extends View {
         mPaint.setStrokeWidth(1);
         mPaint.setTextAlign(Paint.Align.CENTER);
         mPaint.setTextSize(dip2px(14));
+        mPaint.setColor(Color.WHITE);
+
+        mValuePaint = new Paint(mPaint);
+        mValuePaint.setStyle(Paint.Style.FILL);
+        mValuePaint.setColor(Color.argb(124, 145, 24, 55));
 
         mPath = new Path();
-        if (context instanceof Activity) {
-            Activity a = (Activity) context;
-            DisplayMetrics dm = getResources().getDisplayMetrics();
-            a.getWindowManager().getDefaultDisplay().getMetrics(dm);
-            mWindowWidth = dm.widthPixels;
-            mWindowHeight = dm.heightPixels;
-        }
+
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        DisplayMetrics dm = getResources().getDisplayMetrics();
+        wm.getDefaultDisplay().getMetrics(dm);
+        mWindowWidth = dm.widthPixels;
+        mWindowHeight = dm.heightPixels;
 
         values.add("推进");
         values.add("输出");
@@ -74,73 +83,69 @@ public class SpiderView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        canvas.drawARGB(255, 34, 24, 124);
         Rect rect = new Rect();
-
         mPaint.getTextBounds(values.get(0), 0, values.get(0).length(), rect);
         int offset = 4;
         int width = getWidth() - getPaddingLeft() - getPaddingRight() - 2 * rect.width() - 2 * offset;
         int height = getHeight() - getPaddingBottom() - getPaddingTop() - 2 * rect.height() - 2 * offset;
         canvas.translate(getWidth() / 2, getHeight() / 2);
-        int minRadius = width / (2 * 5);
-        mPath.moveTo(0, 0);
-
-        double three = Math.sqrt(2 * 2 - 1);
-        for (int i = 1; i <= 5; i++) {
-            mPath.lineTo(minRadius * i / 2, (float) (minRadius * i / 2 * three));
-
-            mPath.lineTo(minRadius * i, 0);
-
-            mPath.lineTo(minRadius * i / 2, -(float) (minRadius * i / 2 * three));
-
-            mPath.lineTo(-minRadius * i / 2, -(float) (minRadius * i / 2 * three));
-
-            mPath.lineTo(-minRadius * i, 0);
-
-            mPath.lineTo(-minRadius * i / 2, (float) (minRadius * i / 2 * three));
-
-            mPath.lineTo(minRadius * i / 2, (float) (minRadius * i / 2 * three));
-
-            canvas.drawPath(mPath, mPaint);
-
-            if (i == 5) {
-                float x = minRadius * 5 / 2 + offset + rect.width() / 2;
-                float y = (float) (minRadius * i / 2 * three) + offset + rect.height() / 2;
-                float lineX = minRadius * 5 + offset + rect.width() / 2;
-                canvas.drawText(values.get(0), x, y, mPaint);
-                canvas.drawText(values.get(1), lineX, 0, mPaint);
-                canvas.drawText(values.get(2), x, -y, mPaint);
-                canvas.drawText(values.get(3), -x, -y, mPaint);
-                canvas.drawText(values.get(4), -lineX, 0, mPaint);
-                canvas.drawText(values.get(5), -x, y, mPaint);
-
-            }
-        }
-
-        int i = 5;
-        mPath.reset();
-        mPath.moveTo(0, 0);
-        mPath.lineTo(minRadius * i, 0);
-        mPath.moveTo(0, 0);
-        mPath.lineTo(minRadius * i / 2, -(float) (minRadius * i / 2 * three));
-        mPath.moveTo(0, 0);
-        mPath.lineTo(-minRadius * i / 2, -(float) (minRadius * i / 2 * three));
-        mPath.moveTo(0, 0);
-        mPath.lineTo(-minRadius * i, 0);
-        mPath.moveTo(0, 0);
-        mPath.lineTo(-minRadius * i / 2, (float) (minRadius * i / 2 * three));
-
-        canvas.drawPath(mPath, mPaint);
-
-        test(canvas);
+        mRadius = Math.min(width / 2, height / 2);
+        drawPolygon(canvas);
+        drawLines(canvas);
+        drawText(canvas);
+        drawValues(canvas);
     }
 
-    private void test(Canvas canvas) {
-        canvas.save();
-        RectF rectF = new RectF(1, 1 , 10, 10);
+    private void drawValues(Canvas canvas) {
+        mPath.reset();
+        for (int j = 0; j < 6; j++) {
+            float radius = showValues[j] * mRadius / 100;
+            if (j == 0) {
+                mPath.moveTo((float) Math.cos(mAngle * j) * radius, (float) Math.sin(mAngle * j) * radius);
+            } else {
+                mPath.lineTo((float) Math.cos(mAngle * j) * radius, (float) Math.sin(mAngle * j) * radius);
+            }
+        }
+        canvas.drawPath(mPath, mValuePaint);
+    }
 
-        canvas.drawRoundRect(rectF, 30 , 30 , mPaint);
+    private void drawText(Canvas canvas) {
+        Rect rect = new Rect();
 
-        canvas.restore();
+        mPaint.getTextBounds(values.get(0), 0, values.get(0).length(), rect);
+        int offset = 4;
+        for (int i = 0; i < 6; i++) {
+            float x = (float) Math.cos(mAngle * i) * (mRadius + offset + rect.width() / 2);
+            float y = (float) Math.sin(mAngle * i) * (mRadius + offset + rect.height() / 2);
+            String value = values.get(i);
+            canvas.drawText(value, x, y, mPaint);
+        }
+    }
+
+    private void drawLines(Canvas canvas) {
+        for (int i = 0; i < 6; i++) {
+            mPath.reset();
+            mPath.moveTo(0, 0);
+            mPath.lineTo((float) Math.cos(mAngle * i) * mRadius, (float) Math.sin(mAngle * i) * mRadius);
+            canvas.drawPath(mPath, mPaint);
+        }
+    }
+
+    private void drawPolygon(Canvas canvas) {
+        for (int i = 0; i < 5; i++) {
+            float radius = mRadius * (i + 1) / 5;
+            mPath.reset();
+            for (int j = 0; j < 6; j++) {
+                if (j == 0) {
+                    mPath.moveTo((float) Math.cos(mAngle * j) * radius, (float) Math.sin(mAngle * j) * radius);
+                } else {
+                    mPath.lineTo((float) Math.cos(mAngle * j) * radius, (float) Math.sin(mAngle * j) * radius);
+                }
+            }
+            mPath.close();
+            canvas.drawPath(mPath, mPaint);
+        }
     }
 
     private int dip2px(int value) {
