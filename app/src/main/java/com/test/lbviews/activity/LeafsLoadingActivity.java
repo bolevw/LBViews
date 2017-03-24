@@ -1,4 +1,4 @@
-package com.test.lbviews.views;
+package com.test.lbviews.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

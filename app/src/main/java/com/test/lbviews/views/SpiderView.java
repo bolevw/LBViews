@@ -27,7 +27,7 @@ public class SpiderView extends View {
     private int mWindowWidth;
     private int mWindowHeight;
     private List<String> values = new ArrayList<>();
-    private float[] showValues = new float[]{30, 20, 50, 80, 20, 100};
+    private float[] showValues = new float[]{30, 66, 50, 80, 78, 100};
     private float mRadius;
 
 

@@ -1,32 +1,32 @@
 package com.test.lbviews;
 
-import android.graphics.Color;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Display;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.test.lbviews.model.PieData;
+import com.test.lbviews.activity.BersaierCircleActivity;
+import com.test.lbviews.activity.DragViewActivity;
+import com.test.lbviews.activity.ImageStepsActivity;
+import com.test.lbviews.activity.LeafsLoadingActivity;
+import com.test.lbviews.activity.MoveActivity;
+import com.test.lbviews.activity.SimpleBerSaierActivity;
+import com.test.lbviews.activity.SpiderActivity;
+import com.test.lbviews.activity.StepsActivity;
 import com.test.lbviews.views.ImageStepViews;
 import com.test.lbviews.views.MovePath;
-import com.test.lbviews.views.StepViews;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private TextView mTextMessage;
 
-    private StepViews mStepView;
     private ImageStepViews mImageStepViews;
     private MovePath mMovePath;
+    private MainActivity mainActivity;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -53,61 +53,29 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        mainActivity = this;
         mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        mStepView = (StepViews) findViewById(R.id.stepView);
+        jump(R.id.bersaierCircle, BersaierCircleActivity.class);
+        jump(R.id.drag, DragViewActivity.class);
+        jump(R.id.imagestepView, ImageStepsActivity.class);
+        jump(R.id.leafs, LeafsLoadingActivity.class);
+        jump(R.id.move, MoveActivity.class);
+        jump(R.id.simpleberser, SimpleBerSaierActivity.class);
+        jump(R.id.spider, SpiderActivity.class);
+        jump(R.id.steps, StepsActivity.class);
 
-        String[] strings = getResources().getStringArray(R.array.default_steps);
+    }
 
-        List<String> list = Arrays.asList(strings);
-        mStepView.setCurrentSteps(2).setSteps(list).build();
-
-        mImageStepViews = (ImageStepViews) findViewById(R.id.step);
-        mImageStepViews.setOnStepClickListener(new ImageStepViews.OnStepClickListener() {
-            @Override
-            public void stepClick(int clickStep) {
-                Toast.makeText(MainActivity.this, "click step is" + clickStep, Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        mMovePath = (MovePath) findViewById(R.id.move);
-        mMovePath.setOnClickListener(new View.OnClickListener() {
+    public void jump(int resId, final Class clazz) {
+        findViewById(resId).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mMovePath.start();
+                startActivity(new Intent(mainActivity, clazz));
             }
         });
-
-        Display dl = getWindowManager().getDefaultDisplay();
-
-        ArrayList<PieData> list1 = new ArrayList<>();
-        PieData pd = new PieData();
-        pd.setColor(Color.YELLOW);
-        pd.setPercentage(0.3f);
-        list1.add(pd);
-
-        PieData pieData = new PieData();
-        pieData.setPercentage(0.1f);
-        pieData.setColor(Color.RED);
-        list1.add(pieData);
-
-        PieData pd2 = new PieData();
-        pd2.setPercentage(0.3f);
-        pd2.setColor(Color.BLACK);
-        list1.add(pd2);
-
-        PieData pd3 = new PieData();
-        pd3.setPercentage(0.1f);
-        pd3.setColor(Color.BLUE);
-        list1.add(pd3);
-
-        /*PieView v = (PieView) findViewById(R.id.pie);
-        v.setmViewData(list1);*/
-
-
     }
 
 }

@@ -12,12 +12,19 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
+        <com.google.android.flexbox.FlexboxLayout
             android:id="@+id/content"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            app:flexWrap="wrap">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="this content is flex layout" />
 
             <TextView
                 android:id="@+id/message"
@@ -30,46 +37,61 @@
                 android:text="@string/title_home"
                 android:visibility="gone" />
 
-            <com.test.lbviews.views.StepViews
-                android:id="@+id/stepView"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:background="#000" />
-
-            <com.test.lbviews.views.ImageStepViews
-                android:id="@+id/step"
+            <Button
+                android:id="@+id/steps"
                 android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:background="#ff88ff"
-                app:currentStep="4"
-                app:orientation="horizontal" />
-
-            <com.test.lbviews.views.MovePath
-                android:id="@+id/move"
-                android:layout_width="250dp"
-                android:layout_height="250dp"
-                android:layout_gravity="right" />
-
-            <com.test.lbviews.views.SpiderView
-                android:layout_width="300dp"
-                android:layout_height="300dp" />
-
-            <com.test.lbviews.views.CanvasOperation
-                android:layout_width="200dp"
-                android:layout_height="200dp" />
-
-            <com.test.lbviews.views.ProgressView
-                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/activity_vertical_margin"
-                android:layout_marginTop="@dimen/activity_vertical_margin" />
+                android:text="steps" />
 
-            <com.test.lbviews.views.path.BasePathView
-                android:layout_width="400dp"
-                android:layout_height="200dp" />
+            <Button
+                android:id="@+id/imagestepView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="imagesteps" />
+
+            <Button
+                android:id="@+id/move"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="move" />
+
+            <Button
+                android:id="@+id/spider"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="spidder" />
+
+            <Button
+                android:id="@+id/arc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="drawArc" />
+
+            <Button
+                android:id="@+id/leafs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="leafsloading" />
 
 
-        </LinearLayout>
+            <Button
+                android:id="@+id/simpleberser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="simple  beisaier" />
+
+            <Button
+                android:id="@+id/bersaierCircle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="bersaierCircle" />
+
+            <Button
+                android:id="@+id/drag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="dragBersaier" />
+        </com.google.android.flexbox.FlexboxLayout>
     </ScrollView>
 
     <android.support.design.widget.BottomNavigationView
