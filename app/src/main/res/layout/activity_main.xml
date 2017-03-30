@@ -91,6 +91,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="dragBersaier" />
+
+            <Button
+                android:id="@+id/camera"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="camera" />
+
+            <Button
+                android:id="@+id/album"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="album" />
+
+            <Button
+                android:id="@+id/albumSelect"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="albumSelect" />
         </com.google.android.flexbox.FlexboxLayout>
     </ScrollView>
 

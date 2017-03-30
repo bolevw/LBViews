@@ -9,6 +9,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.boger.imagepicker.activities.AlbumSelectActivity;
+import com.boger.pictureutils.activities.AlbumActivity;
+import com.boger.pictureutils.activities.SimpleActivity;
 import com.test.lbviews.activity.BersaierCircleActivity;
 import com.test.lbviews.activity.DragViewActivity;
 import com.test.lbviews.activity.ImageStepsActivity;
@@ -66,8 +69,11 @@ public class MainActivity extends AppCompatActivity {
         jump(R.id.simpleberser, SimpleBerSaierActivity.class);
         jump(R.id.spider, SpiderActivity.class);
         jump(R.id.steps, StepsActivity.class);
-
+        jump(R.id.camera, SimpleActivity.class);
+        jump(R.id.album, AlbumActivity.class);
+        jump(R.id.albumSelect, AlbumSelectActivity.class);
     }
+
 
     public void jump(int resId, final Class clazz) {
         findViewById(resId).setOnClickListener(new View.OnClickListener() {
